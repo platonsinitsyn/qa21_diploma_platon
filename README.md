@@ -1,2 +1,23 @@
 # Diploma project of Platon Sinitsyn for QAP21 group
-My project of the diploma for qa21 python automation sources on TMS
+
+### Technologies stack:
+
+- Python 
+- pytest
+- Selenium
+- Allure
+
+### Preparation of project:
+
+```
+bash
+pip install -r requirements.txt pre-commit install
+pre-commit install --hook-type pre-commit
+```
+
+### Autotests launch:
+
+```
+bash 
+python3 -m pytest
+```
