@@ -10,9 +10,10 @@ def pytest_addoption(parser):
 @pytest.fixture
 def driver():
     opts = ChromeOptions()
-    opts.headless = False
+    opts.headless = True
     opts.add_argument("--window-size=1920,1080")
     opts.add_experimental_option("detach", True)
+    opts.add_experimental_option("prefs", {"intl.accept_languages": "en,en_US"})
     driver = webdriver.Chrome(options=opts)
     driver.implicitly_wait(10)
     yield driver
