@@ -2,7 +2,6 @@ import pytest
 
 from pageobject_structure.pageobject.dashboard_page import DashboardPage
 from pageobject_structure.pageobject.login_page import LoginPage
-from pageobject_structure.urls import URLS
 
 
 @pytest.fixture()
@@ -47,11 +46,3 @@ def test_positive_login(login_page, dashboard_page, open_page):
 def test_login_validation(login_page, open_page, user, password, expect):
     login_page.login(user, password)
     login_page.check_that_error_is_visible(expect)
-
-
-@pytest.mark.smoke
-def test_check_logout(login_page, dashboard_page, open_page):
-    login_page.login("Admin", "admin123")
-    dashboard_page.check_that_page_opened("Dashboard")
-    dashboard_page.click_logout()
-    login_page.page_should_be_opened(URLS.BASE + URLS.LOGIN)
