@@ -4,10 +4,9 @@ from pageobject_structure.urls import URLS
 
 
 class LoginPage(BasePage):
-
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.login_locators = LoginLocators(driver)
+    def __init__(self, page):
+        super().__init__(page)
+        self.login_locators = LoginLocators
 
     def open_page(self):
         self.open(URLS.BASE + URLS.LOGIN)
@@ -20,14 +19,14 @@ class LoginPage(BasePage):
     def check_that_page_opened(self, title, credits, os_number, license_text):
         self.should_be_visible(self.login_locators.LOGO)
         self.should_be_visible(self.login_locators.SIDE_LOGO)
-        self.should_be_has_text(self.login_locators.PAGE_TITLE, title)
-        self.should_be_has_text(self.login_locators.LOGIN_CREDS, credits)
+        self.should_has_text(self.login_locators.PAGE_TITLE, title)
+        self.should_has_text(self.login_locators.LOGIN_CREDS, credits)
         self.should_be_visible(self.login_locators.INPUT_USERNAME)
         self.should_be_visible(self.login_locators.INPUT_PASSWORD)
         self.should_be_visible(self.login_locators.SUBMIT)
         self.should_be_visible(self.login_locators.FORGOT_BUTTON)
-        self.should_be_has_text(self.login_locators.FOOTER_OS, os_number)
-        self.should_be_has_text(self.login_locators.FOOTER_LICENSE, license_text)
+        self.should_has_text(self.login_locators.FOOTER_OS, os_number)
+        self.should_has_text(self.login_locators.FOOTER_LICENSE, license_text)
         self.should_be_visible(self.login_locators.FOOTER_LINK)
         self.should_be_visible(self.login_locators.LINKEDIN_LINK)
         self.should_be_visible(self.login_locators.FACEBOOK_LINK)
@@ -37,4 +36,4 @@ class LoginPage(BasePage):
 
     def check_that_error_is_visible(self, text):
         self.should_be_visible(self.login_locators.ERROR)
-        self.should_be_has_text(self.login_locators.ERROR, text)
+        self.should_has_text(self.login_locators.ERROR, text)

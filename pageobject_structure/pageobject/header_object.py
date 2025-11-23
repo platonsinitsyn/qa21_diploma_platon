@@ -1,4 +1,4 @@
-from selenium.webdriver.support import expected_conditions as EC
+from playwright.sync_api import expect
 
 from pageobject_structure.core.base_page import BasePage
 from pageobject_structure.locators.dashboard_locators import DashboardLocators
@@ -6,11 +6,10 @@ from pageobject_structure.locators.header_locators import HeaderLocators
 
 
 class HeaderObject(BasePage):
-
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.header_locators = HeaderLocators(driver)
-        self.dashboard_locators = DashboardLocators(driver)
+    def __init__(self, page):
+        super().__init__(page)
+        self.header_locators = HeaderLocators
+        self.dashboard_locators = DashboardLocators
 
     def click_upgrade(self):
         self.click(self.header_locators.UPGRADE_BUTTON)
@@ -28,8 +27,15 @@ class HeaderObject(BasePage):
         self.click(self.header_locators.LOGOUT_BUTTON)
 
     def switch_to_new_tab(self, expected_tabs=2, timeout=10):
-        self.wait.until(EC.number_of_windows_to_be(expected_tabs))
-        self.driver.switch_to.window(self.driver.window_handles[-1])
+        self.page.context.wait_for_event("page", timeout=timeout * 1000)
+        pages = self.page.context.pages
+        new_page = pages[-1]
+        self.page = new_page
+
+    def page_should_be_opened(self, expected_url, title=None):
+        expect(self.page).to_have_url(expected_url)
+        if title:
+            expect(self.page).to_have_title(title)
 
     def check_about_modal(self):
         self.click(self.header_locators.USER_DROPDOWN)

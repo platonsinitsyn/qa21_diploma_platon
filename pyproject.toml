@@ -29,3 +29,11 @@ skip = [
     "allure-report",
     ".pytest_cache",
 ]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "pageobject_structure/tests"
+]
+norecursedirs = [
+    ".*", "venv", "env", "__pycache__", "Library", "Applications"
+]

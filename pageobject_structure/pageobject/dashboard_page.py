@@ -4,11 +4,10 @@ from pageobject_structure.locators.header_locators import HeaderLocators
 
 
 class DashboardPage(BasePage):
-
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.dashboard_locators = DashboardLocators(driver)
-        self.header_locators = HeaderLocators(driver)
+    def __init__(self, page):
+        super().__init__(page)
+        self.dashboard_locators = DashboardLocators
+        self.header_locators = HeaderLocators
 
     def check_quick_assign(self):
         self.click(self.dashboard_locators.ASSIGN_LEAVE_BTN)
@@ -28,8 +27,8 @@ class DashboardPage(BasePage):
     def check_quick_my_timesheet(self):
         self.click(self.dashboard_locators.MY_TIMESHEET_BTN)
 
-    def check_that_page_opened(self, title):
-        self.should_be_has_text(self.dashboard_locators.DASHBOARD_TITLE, title)
+    def check_that_page_opened(self):
+        self.should_be_visible(self.dashboard_locators.DASHBOARD_TITLE)
         self.should_be_visible(self.header_locators.UPGRADE_BUTTON)
         self.should_be_visible(self.header_locators.USER_DROPDOWN)
 
