@@ -5,13 +5,13 @@ from pageobject_structure.pageobject.login_page import LoginPage
 
 
 @pytest.fixture()
-def login_page(driver):
-    return LoginPage(driver)
+def login_page(page):
+    return LoginPage(page)
 
 
 @pytest.fixture()
-def dashboard_page(driver):
-    return DashboardPage(driver)
+def dashboard_page(page):
+    return DashboardPage(page)
 
 
 @pytest.fixture()
@@ -23,7 +23,7 @@ def open_page(login_page):
 def test_open_login_page(login_page, open_page):
     login_page.check_that_page_opened(
         title="Login",
-        credits="Username : Admin\nPassword : admin123",
+        credits="Username : AdminPassword : admin123",
         os_number="OrangeHRM OS 5.7",
         license_text="© 2005 - 2025 OrangeHRM, Inc. All rights reserved.",
     )
@@ -32,7 +32,7 @@ def test_open_login_page(login_page, open_page):
 @pytest.mark.smoke
 def test_positive_login(login_page, dashboard_page, open_page):
     login_page.login("Admin", "admin123")
-    dashboard_page.check_that_page_opened("Dashboard")
+    dashboard_page.check_that_page_opened()
 
 
 @pytest.mark.smoke

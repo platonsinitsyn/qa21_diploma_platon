@@ -6,13 +6,13 @@ from pageobject_structure.urls import URLS
 
 
 @pytest.fixture()
-def login_page(driver):
-    return LoginPage(driver)
+def login_page(page):
+    return LoginPage(page)
 
 
 @pytest.fixture()
-def dashboard_page(driver):
-    return DashboardPage(driver)
+def dashboard_page(page):
+    return DashboardPage(page)
 
 
 @pytest.fixture()
@@ -23,7 +23,7 @@ def open_page(login_page):
 @pytest.mark.smoke
 def test_check_sections_displayed(login_page, dashboard_page, open_page):
     login_page.login("Admin", "admin123")
-    dashboard_page.check_that_page_opened("Dashboard")
+    dashboard_page.check_that_page_opened()
     dashboard_page.check_that_all_sections_displayed()
 
 
@@ -41,7 +41,7 @@ def test_check_sections_displayed(login_page, dashboard_page, open_page):
 )
 def test_quick_section(login_page, dashboard_page, open_page, action_method, expected_url):
     login_page.login("Admin", "admin123")
-    dashboard_page.check_that_page_opened("Dashboard")
+    dashboard_page.check_that_page_opened()
     method = getattr(dashboard_page, action_method)
     method()
     dashboard_page.page_should_be_opened(expected_url)

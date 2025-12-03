@@ -3,10 +3,9 @@ from pageobject_structure.locators.sidebar_locators import SidebarLocators
 
 
 class SidebarObject(BasePage):
-
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.sidebar_locators = SidebarLocators(driver)
+    def __init__(self, page):
+        super().__init__(page)
+        self.sidebar_locators = SidebarLocators
 
     def click_banner_logo(self):
         self.click(self.sidebar_locators.BANNER)

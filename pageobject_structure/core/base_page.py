@@ -1,43 +1,29 @@
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
+from playwright.sync_api import expect
 
 
 class BasePage:
-    def __init__(self, driver):
-        self.driver = driver
-        self.wait = WebDriverWait(self.driver, 10)
+    def __init__(self, page):
+        self.page = page
 
-    def open(self, url):
-        self.driver.get(url)
-
-    def get_element(self, selector, timeout=5):
-        element = WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(selector))
-        return element
+    def open(self, url: str):
+        self.page.goto(url)
 
     def click(self, selector):
-        element = self.get_element(selector)
-        element.click()
+        self.page.locator(selector).click()
 
-    def fill(self, selector, text):
-        element = self.get_element(
-            selector,
-        )
-        element.send_keys(text)
+    def fill(self, selector, text: str):
+        self.page.locator(selector).fill(text)
 
     def page_should_be_opened(self, expected_url, title=None):
-        assert self.wait.until(EC.url_contains(expected_url))
+        expect(self.page).to_have_url(expected_url)
         if title:
-            assert self.wait.until(EC.title_contains(title))
+            expect(self.page).to_have_title(title)
 
-    def should_be_has_text(self, selector, expected):
-        element = self.get_element(selector)
-        actual = element.text.strip()
-        assert actual == expected, f"ACTUAL IS:  {actual}, EXPECTED IS: {expected}"
+    def should_has_text(self, selector, expected):
+        expect(self.page.locator(selector)).to_have_text(expected)
 
     def should_be_visible(self, selector):
-        element = self.get_element(selector)
-        assert element.is_displayed()
+        expect(self.page.locator(selector)).to_be_visible()
 
-    def should_be_not_visible(self, selector, timeout=1):
-        element = WebDriverWait(self.driver, timeout).until_not(EC.element_to_be_clickable(selector))
-        return element
+    def should_be_not_visible(self, selector):
+        expect(self.page.locator(selector)).not_to_be_visible()

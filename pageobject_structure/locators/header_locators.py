@@ -1,24 +1,18 @@
-from selenium.webdriver.common.by import By
-
-from pageobject_structure.core.base_page import BasePage
-
-
-class HeaderLocators(BasePage):
-    UPGRADE_BUTTON = By.CSS_SELECTOR, ".oxd-glass-button.orangehrm-upgrade-button"
-    USER_DROPDOWN = By.CSS_SELECTOR, ".oxd-userdropdown-tab"
-    ABOUT_BUTTON = By.XPATH, "//a[text()='About']"
-    SUPPORT_BUTTON = By.XPATH, "//a[text()='Support']"
-    CHANGE_PASSWORD_BUTTON = By.XPATH, "//a[text()='Change Password']"
-    LOGOUT_BUTTON = By.XPATH, "//a[text()='Logout']"
-    # ABOUT MODAL
-    ABOUT_MODAL = (By.CSS_SELECTOR, ".oxd-dialog-container")
-    ABOUT_HEADER = (By.XPATH, "//h6[normalize-space()='About']")
-    ABOUT_CLOSE_BTN = (By.CSS_SELECTOR, ".oxd-dialog-close-button")
-    COMPANY_NAME_LABEL = (By.XPATH, "//p[normalize-space()='Company Name:']")
-    COMPANY_NAME_TEXT = (By.XPATH, "//*[@id='app']/div[2]/div/div/div/div[2]/div[2]/p")
-    VERSION_LABEL = (By.XPATH, "//p[normalize-space()='Version:']")
-    VERSION_TEXT = (By.XPATH, "//*[@id='app']/div[2]/div/div/div/div[2]/div[4]/p")
-    EMPLOYEES_LABEL = (By.XPATH, "//p[normalize-space()='Active Employees:']")
-    EMPLOYEES_TEXT = (By.XPATH, "//*[@id='app']/div[2]/div/div/div/div[2]/div[6]/p")
-    TERMINATED_LABEL = (By.XPATH, "//p[normalize-space()='Employees Terminated:']")
-    TERMINATED_TEXT = (By.XPATH, "//*[@id='app']/div[2]/div/div/div/div[2]/div[8]/p")
+class HeaderLocators:
+    UPGRADE_BUTTON = ".orangehrm-upgrade-container"
+    USER_DROPDOWN = ".oxd-userdropdown"
+    ABOUT_BUTTON = "ul.oxd-dropdown-menu li:nth-child(1) a.oxd-userdropdown-link"
+    SUPPORT_BUTTON = "ul.oxd-dropdown-menu li:nth-child(2) a.oxd-userdropdown-link"
+    CHANGE_PASSWORD_BUTTON = "ul.oxd-dropdown-menu li:nth-child(3) a.oxd-userdropdown-link"
+    LOGOUT_BUTTON = "ul.oxd-dropdown-menu li:nth-child(4) a.oxd-userdropdown-link"
+    ABOUT_MODAL = ".oxd-dropdown-menu"
+    ABOUT_HEADER = "//div[contains(@class,'oxd-dialog-container')]//h6[contains(@class,'orangehrm-main-title')]"
+    ABOUT_CLOSE_BTN = ".oxd-dialog-close-button"
+    COMPANY_NAME_LABEL = "//p[normalize-space()='Company Name:']"
+    COMPANY_NAME_TEXT = "//*[@id='app']/div[2]/div/div/div/div[2]/div[2]/p"
+    VERSION_LABEL = "//p[normalize-space()='Version:']"
+    VERSION_TEXT = "//*[@id='app']/div[2]/div/div/div/div[2]/div[4]/p"
+    EMPLOYEES_LABEL = "//p[normalize-space()='Active Employees:']"
+    EMPLOYEES_TEXT = "//*[@id='app']/div[2]/div/div/div/div[2]/div[6]/p"
+    TERMINATED_LABEL = "//p[normalize-space()='Employees Terminated:']"
+    TERMINATED_TEXT = "//*[@id='app']/div[2]/div/div/div/div[2]/div[8]/p"

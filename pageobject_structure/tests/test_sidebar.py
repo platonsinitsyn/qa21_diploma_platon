@@ -7,18 +7,18 @@ from pageobject_structure.urls import URLS
 
 
 @pytest.fixture()
-def login_page(driver):
-    return LoginPage(driver)
+def login_page(page):
+    return LoginPage(page)
 
 
 @pytest.fixture()
-def dashboard_page(driver):
-    return DashboardPage(driver)
+def dashboard_page(page):
+    return DashboardPage(page)
 
 
 @pytest.fixture()
-def sidebar_object(driver):
-    return SidebarObject(driver)
+def sidebar_object(page):
+    return SidebarObject(page)
 
 
 @pytest.fixture()
@@ -29,7 +29,7 @@ def open_page(login_page):
 @pytest.mark.smoke
 def test_check_sidebar_menu(login_page, dashboard_page, open_page, sidebar_object):
     login_page.login("Admin", "admin123")
-    dashboard_page.check_that_page_opened("Dashboard")
+    dashboard_page.check_that_page_opened()
     sidebar_object.check_sidebar_menu()
 
 
@@ -53,7 +53,7 @@ def test_check_sidebar_menu(login_page, dashboard_page, open_page, sidebar_objec
 )
 def test_navigates_to_sidebar_tabs(login_page, dashboard_page, open_page, click_tab, expected_url, sidebar_object):
     login_page.login("Admin", "admin123")
-    dashboard_page.check_that_page_opened("Dashboard")
-    page = getattr(sidebar_object, click_tab)
-    page()
+    dashboard_page.check_that_page_opened()
+    tab = getattr(sidebar_object, click_tab)
+    tab()
     sidebar_object.page_should_be_opened(expected_url)
