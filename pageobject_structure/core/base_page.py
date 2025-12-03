@@ -38,6 +38,6 @@ class BasePage:
         element = self.get_element(selector)
         assert element.is_displayed()
 
-    def should_be_not_visible(self, selector, timeout=5):
+    def should_be_not_visible(self, selector, timeout=1):
         element = WebDriverWait(self.driver, timeout).until_not(EC.element_to_be_clickable(selector))
         return element

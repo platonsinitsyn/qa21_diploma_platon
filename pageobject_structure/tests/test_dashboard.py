@@ -32,8 +32,8 @@ def test_check_sections_displayed(login_page, dashboard_page, open_page):
     "action_method, expected_url",
     [
         ("check_quick_assign", URLS.BASE + URLS.ASSIGN_LEAVE),
-        ("check_quick_leave", URLS.BASE + URLS.LEAVE_LIST),
-        ("check_quick_timesheets", URLS.BASE + URLS.TIME_TIMESHEET),
+        ("check_quick_leave", URLS.BASE + URLS.LEAVE),
+        ("check_quick_timesheets", URLS.BASE + URLS.TIME),
         ("check_quick_apply", URLS.BASE + URLS.APPLY_LEAVE),
         ("check_quick_my_leave", URLS.BASE + URLS.MY_LEAVE_LIST),
         ("check_quick_my_timesheet", URLS.BASE + URLS.MY_TIME_TIMESHEET),
