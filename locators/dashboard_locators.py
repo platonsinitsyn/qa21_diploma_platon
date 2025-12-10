@@ -17,3 +17,6 @@ class DashboardLocators:
         APPLY_LEAVE_BTN = "button[title='Apply Leave']"
         MY_LEAVE_BTN = "button[title='My Leave']"
         MY_TIMESHEET_BTN = "button[title='My Timesheet']"
+
+    def get_buttons(title):
+        return page.locator(f"button[title='{title}']")
