@@ -9,6 +9,9 @@ class DashboardPage(BasePage):
         self.dashboard_locators = DashboardLocators
         self.header_locators = HeaderLocators
 
+    def clisk_on_button(self, title):
+        self.dashboard_locators.get_buttons(title).click()
+        
     def check_quick_assign(self):
         self.click(self.dashboard_locators.ASSIGN_LEAVE_BTN)
 
