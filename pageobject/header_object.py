@@ -1,8 +1,8 @@
 from playwright.sync_api import expect
 
-from pageobject.core.base_page import BasePage
-from pageobject.locators.dashboard_locators import DashboardLocators
-from pageobject.locators.header_locators import HeaderLocators
+from core.base_page import BasePage
+from locators.dashboard_locators import DashboardLocators
+from locators.header_locators import HeaderLocators
 
 
 class HeaderObject(BasePage):
@@ -37,9 +37,14 @@ class HeaderObject(BasePage):
         if title:
             expect(self.page).to_have_title(title)
 
-    def check_about_modal(self):
+    def open_modal(self):
         self.click(self.header_locators.USER_DROPDOWN)
         self.click(self.header_locators.ABOUT_BUTTON)
+
+    def close_modal(self):
+        self.click(self.header_locators.ABOUT_CLOSE_BTN)
+
+    def check_modal_is_opened(self):
         self.should_be_visible(self.header_locators.ABOUT_HEADER)
         self.should_be_visible(self.header_locators.COMPANY_NAME_LABEL)
         self.should_be_visible(self.header_locators.COMPANY_NAME_TEXT)
@@ -50,5 +55,6 @@ class HeaderObject(BasePage):
         self.should_be_visible(self.header_locators.TERMINATED_LABEL)
         self.should_be_visible(self.header_locators.TERMINATED_TEXT)
         self.should_be_visible(self.header_locators.ABOUT_CLOSE_BTN)
-        self.click(self.header_locators.ABOUT_CLOSE_BTN)
+
+    def check_modal_is_closed(self):
         self.should_be_not_visible(self.header_locators.ABOUT_HEADER)

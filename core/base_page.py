@@ -22,8 +22,11 @@ class BasePage:
     def should_has_text(self, selector, expected):
         expect(self.page.locator(selector)).to_have_text(expected)
 
-    def should_be_visible(self, selector):
-        expect(self.page.locator(selector)).to_be_visible()
+    def should_be_visible(self, selector, is_visible=True):
+        if is_visible:
+            expect(self.page.locator(selector)).to_be_visible()
+        else:
+            self.should_be_not_visible(selector)
 
     def should_be_not_visible(self, selector):
         expect(self.page.locator(selector)).not_to_be_visible()

@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Set up Python
         run: |
           python3 --version || python --version
@@ -26,13 +26,13 @@ jobs:
           python3 -m venv venv || python -m venv venv
           . venv/bin/activate
           pip install --upgrade pip setuptools wheel
-      
+
       - name: Install dependencies
         run: |
           . venv/bin/activate
           pip install -r requirements.txt
           playwright install chromium || echo "Browsers may already be installed"
-      
+
       - name: Run linters
         run: |
           . venv/bin/activate
@@ -43,14 +43,14 @@ jobs:
           echo "Running Flake8 check..."
           flake8 --exclude venv,.venv,env || echo "Flake8 check failed"
         continue-on-error: true
-      
+
       - name: Run tests
         id: pytest
         run: |
           . venv/bin/activate
           pytest -s --tracing on --video retain-on-failure --screenshot on --alluredir allure-results --tb=short
         continue-on-error: true
-      
+
       - name: Test summary
         if: always()
         run: |
@@ -64,7 +64,7 @@ jobs:
           echo "- 📸 Screenshots" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "💡 Check the artifacts section below to download detailed reports and see test results." >> $GITHUB_STEP_SUMMARY
-      
+
       - name: Generate Allure report
         if: always()
         run: |
@@ -79,7 +79,7 @@ jobs:
             ./allure-2.24.1/bin/allure generate allure-results -o allure-report --clean || echo "Allure report generation failed"
           fi
         continue-on-error: true
-      
+
       - name: Upload Allure results
         if: always()
         uses: actions/upload-artifact@v4
@@ -87,7 +87,7 @@ jobs:
           name: allure-results
           path: allure-results/
           retention-days: 30
-      
+
       - name: Upload Allure report
         if: always()
         uses: actions/upload-artifact@v4
@@ -95,7 +95,7 @@ jobs:
           name: allure-report
           path: allure-report/
           retention-days: 30
-      
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
@@ -103,7 +103,7 @@ jobs:
           name: test-results
           path: test-results/
           retention-days: 30
-      
+
       - name: Upload screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -113,7 +113,7 @@ jobs:
             **/*.png
             **/*.jpg
           retention-days: 7
-      
+
       - name: Upload videos
         if: always()
         uses: actions/upload-artifact@v4

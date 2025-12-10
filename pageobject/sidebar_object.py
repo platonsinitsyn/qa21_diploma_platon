@@ -1,5 +1,5 @@
-from pageobject.core.base_page import BasePage
-from pageobject.locators.sidebar_locators import SidebarLocators
+from core.base_page import BasePage
+from locators.sidebar_locators import SidebarLocators
 
 
 class SidebarObject(BasePage):
@@ -47,26 +47,18 @@ class SidebarObject(BasePage):
     #     self.click(self.sidebar_locators.MAINTENANCE)
 
     def check_search_results(self, expected_visible):
-        all_items = [
-            self.sidebar_locators.ADMIN,
-            self.sidebar_locators.PIM,
-            self.sidebar_locators.LEAVE,
-            self.sidebar_locators.TIME,
-            self.sidebar_locators.RECRUITMENT,
-            self.sidebar_locators.MY_INFO,
-            self.sidebar_locators.PERFORMANCE,
-            self.sidebar_locators.DASHBOARD,
-            self.sidebar_locators.DIRECTORY,
-            self.sidebar_locators.MAINTENANCE,
-            self.sidebar_locators.CLAIM,
-            self.sidebar_locators.BUZZ,
-        ]
-
-        for item in all_items:
-            if item == expected_visible:
-                self.should_be_visible(item)
-            else:
-                self.should_be_not_visible(item)
+        self.should_be_visible(self.sidebar_locators.ADMIN, expected_visible)
+        self.should_be_visible(self.sidebar_locators.PIM, expected_visible)
+        self.should_be_visible(self.sidebar_locators.LEAVE, expected_visible)
+        self.should_be_visible(self.sidebar_locators.TIME, expected_visible)
+        self.should_be_visible(self.sidebar_locators.RECRUITMENT, expected_visible)
+        self.should_be_visible(self.sidebar_locators.MY_INFO, expected_visible)
+        self.should_be_visible(self.sidebar_locators.PERFORMANCE, expected_visible)
+        self.should_be_visible(self.sidebar_locators.DASHBOARD, expected_visible)
+        self.should_be_visible(self.sidebar_locators.DIRECTORY, expected_visible)
+        self.should_be_visible(self.sidebar_locators.MAINTENANCE, expected_visible)
+        self.should_be_visible(self.sidebar_locators.CLAIM, expected_visible)
+        self.should_be_visible(self.sidebar_locators.BUZZ, expected_visible)
 
     def check_search_with_positive_cases(self, search_value):
         self.fill(self.sidebar_locators.SEARCH, text=search_value)  # Exact value / "Dashboard"

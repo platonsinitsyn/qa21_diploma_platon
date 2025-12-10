@@ -1,8 +1,8 @@
 import pytest
 
-from pageobject.objects.dashboard_page import DashboardPage
-from pageobject.objects.login_page import LoginPage
-from pageobject.urls import URLS
+from core.urls import URLS
+from pageobject.dashboard_page import DashboardPage
+from pageobject.login_page import LoginPage
 
 
 @pytest.fixture()
