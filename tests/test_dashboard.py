@@ -45,3 +45,14 @@ def test_quick_section(login_page, dashboard_page, open_page, action_method, exp
     method = getattr(dashboard_page, action_method)
     method()
     dashboard_page.page_should_be_opened(expected_url)
+
+@pytest.mark.smoke
+@pytest.mark.parametrize(
+    "title, expected_url",
+    [
+        ("My Timesheet", URLS.ASSIGN_LEAVE)
+    ],
+)
+def test_quick_section(login, dashboard_page, open_page, title, expected_url):
+    dashboard_page.click_on_button(title)
+    dashboard_page.page_should_be_opened(expected_url)
