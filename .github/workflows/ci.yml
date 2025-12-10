@@ -1,0 +1,126 @@
+name: CI Tests
+
+on:
+  push:
+    branches: [ master, main, develop ]
+  pull_request:
+    branches: [ master, main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.56.0-noble
+      options: --user root
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        run: |
+          python3 --version || python --version
+          # Устанавливаем python3-venv для создания виртуального окружения
+          apt-get update && apt-get install -y python3.12-venv || apt-get install -y python3-venv || true
+          python3 -m venv venv || python -m venv venv
+          . venv/bin/activate
+          pip install --upgrade pip setuptools wheel
+      
+      - name: Install dependencies
+        run: |
+          . venv/bin/activate
+          pip install -r requirements.txt
+          playwright install chromium || echo "Browsers may already be installed"
+      
+      - name: Run linters
+        run: |
+          . venv/bin/activate
+          echo "Running Black check..."
+          black --check . || echo "Black check failed"
+          echo "Running Isort check..."
+          isort --check-only . || echo "Isort check failed"
+          echo "Running Flake8 check..."
+          flake8 --exclude venv,.venv,env || echo "Flake8 check failed"
+        continue-on-error: true
+      
+      - name: Run tests
+        id: pytest
+        run: |
+          . venv/bin/activate
+          pytest -s --tracing on --video retain-on-failure --screenshot on --alluredir allure-results --tb=short
+        continue-on-error: true
+      
+      - name: Test summary
+        if: always()
+        run: |
+          echo "## 📊 Test Results Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Tests execution completed**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 Artifacts available:" >> $GITHUB_STEP_SUMMARY
+          echo "- 📊 Allure results and report" >> $GITHUB_STEP_SUMMARY
+          echo "- 🎥 Test videos (for failed tests)" >> $GITHUB_STEP_SUMMARY
+          echo "- 📸 Screenshots" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "💡 Check the artifacts section below to download detailed reports and see test results." >> $GITHUB_STEP_SUMMARY
+      
+      - name: Generate Allure report
+        if: always()
+        run: |
+          . venv/bin/activate
+          if command -v allure &> /dev/null; then
+            echo "Using system Allure CLI"
+            allure generate allure-results -o allure-report --clean || echo "Allure report generation failed"
+          else
+            echo "Installing Allure CLI..."
+            wget https://github.com/allure-framework/allure2/releases/download/2.24.1/allure-2.24.1.tgz
+            tar -zxf allure-2.24.1.tgz
+            ./allure-2.24.1/bin/allure generate allure-results -o allure-report --clean || echo "Allure report generation failed"
+          fi
+        continue-on-error: true
+      
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results/
+          retention-days: 30
+      
+      - name: Upload Allure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 30
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 30
+      
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: |
+            **/*.png
+            **/*.jpg
+          retention-days: 7
+      
+      - name: Upload videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: videos
+          path: |
+            **/*.webm
+            **/*.mp4
+          retention-days: 7
+

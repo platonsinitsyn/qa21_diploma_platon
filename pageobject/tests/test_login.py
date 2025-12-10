@@ -1,7 +1,7 @@
 import pytest
 
-from pageobject_structure.pageobject.dashboard_page import DashboardPage
-from pageobject_structure.pageobject.login_page import LoginPage
+from pageobject.objects.dashboard_page import DashboardPage
+from pageobject.objects.login_page import LoginPage
 
 
 @pytest.fixture()

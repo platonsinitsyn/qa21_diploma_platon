@@ -1,6 +1,6 @@
-from pageobject_structure.core.base_page import BasePage
-from pageobject_structure.locators.login_locators import LoginLocators
-from pageobject_structure.urls import URLS
+from pageobject.core.base_page import BasePage
+from pageobject.locators.login_locators import LoginLocators
+from pageobject.urls import URLS
 
 
 class LoginPage(BasePage):

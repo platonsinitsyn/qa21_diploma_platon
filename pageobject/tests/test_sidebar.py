@@ -1,9 +1,9 @@
 import pytest
 
-from pageobject_structure.pageobject.dashboard_page import DashboardPage
-from pageobject_structure.pageobject.login_page import LoginPage
-from pageobject_structure.pageobject.sidebar_object import SidebarObject
-from pageobject_structure.urls import URLS
+from pageobject.objects.dashboard_page import DashboardPage
+from pageobject.objects.login_page import LoginPage
+from pageobject.objects.sidebar_object import SidebarObject
+from pageobject.urls import URLS
 
 
 @pytest.fixture()
