@@ -1,8 +1,8 @@
 from playwright.sync_api import expect
 
 from core.base_page import BasePage
-from pageobject.locators.dashboard_locators import DashboardLocators
-from pageobject.locators.header_locators import HeaderLocators
+from locators.dashboard_locators import DashboardLocators
+from locators.header_locators import HeaderLocators
 
 
 class HeaderObject(BasePage):

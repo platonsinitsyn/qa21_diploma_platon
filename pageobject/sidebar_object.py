@@ -1,5 +1,5 @@
 from core.base_page import BasePage
-from pageobject.locators.sidebar_locators import SidebarLocators
+from locators.sidebar_locators import SidebarLocators
 
 
 class SidebarObject(BasePage):

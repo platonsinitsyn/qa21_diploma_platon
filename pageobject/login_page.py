@@ -1,6 +1,6 @@
 from core.base_page import BasePage
 from core.urls import URLS
-from pageobject.locators.login_locators import LoginLocators
+from locators.login_locators import LoginLocators
 
 
 class LoginPage(BasePage):

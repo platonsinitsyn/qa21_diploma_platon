@@ -2,7 +2,7 @@
 
 ### Technologies stack:
 
-- Python 
+- Python
 - pytest
 - Selenium
 - Allure
