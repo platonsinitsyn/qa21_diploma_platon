@@ -1,8 +1,8 @@
 import enum
 
-
+BASE = "https://opensource-demo.orangehrmlive.com/web/index.php"
 class URLS(enum.StrEnum):
-    BASE = "https://opensource-demo.orangehrmlive.com/"
+    LOGIN = f"{BASE}/auth/login"
     MAIN_PAGE = "https://www.orangehrm.com/"
     LOGIN = "web/index.php/auth/login"
     ADMIN = "web/index.php/admin/viewSystemUsers"
