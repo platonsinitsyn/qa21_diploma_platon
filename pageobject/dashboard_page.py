@@ -28,7 +28,10 @@ class DashboardPage(BasePage):
         self.click(self.dashboard_locators.MY_TIMESHEET_BTN)
 
     def check_that_page_opened(self):
+        # self.dashboard_locators.DASHBOARD_TITLE.click()
+        
         self.should_be_visible(self.dashboard_locators.DASHBOARD_TITLE)
+        
         self.should_be_visible(self.header_locators.UPGRADE_BUTTON)
         self.should_be_visible(self.header_locators.USER_DROPDOWN)
 
