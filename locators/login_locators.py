@@ -1,17 +1,19 @@
 class LoginLocators:
-    LOGO = ".orangehrm-login-branding"
-    SIDE_LOGO = "//*[@id='app']/div[1]/div/div[2]"
-    PAGE_TITLE = ".oxd-text.oxd-text--h5.orangehrm-login-title"
-    LOGIN_CREDS = ".orangehrm-login-error"
-    INPUT_USERNAME = "[name='username']"
-    INPUT_PASSWORD = "[name='password']"
-    SUBMIT = "button[type='submit']"
-    FORGOT_BUTTON = ".orangehrm-login-forgot-header"
-    FOOTER_OS = ".orangehrm-copyright-wrapper p:first-of-type"
-    FOOTER_LICENSE = ".orangehrm-copyright-wrapper p:last-of-type"
-    FOOTER_LINK = ".orangehrm-copyright-wrapper a"
-    LINKEDIN_LINK = "a[href*='linkedin.com']"
-    FACEBOOK_LINK = "a[href*='facebook.com']"
-    TWITTER_LINK = "a[href*='twitter.com']"
-    YOUTUBE_LINK = "a[href*='youtube.com']"
-    ERROR = ".oxd-alert.oxd-alert--error"
+    def __init__(self, page):
+        self.page = page
+        self.LOGO = page.locator(".orangehrm-login-branding")
+        self.SIDE_LOGO = page.locator("//*[@id='app']/div[1]/div/div[2]")
+        self.PAGE_TITLE = page.locator(".oxd-text.oxd-text--h5.orangehrm-login-title")
+        self.LOGIN_CREDS = page.locator(".orangehrm-login-error")
+        self.INPUT_USERNAME = page.locator("[name='username']")
+        self.INPUT_PASSWORD = page.locator("[name='password']")
+        self.SUBMIT = page.locator("button[type='submit']")
+        self.FORGOT_BUTTON = page.locator(".orangehrm-login-forgot-header")
+        self.FOOTER_OS = page.locator(".orangehrm-copyright-wrapper p:first-of-type")
+        self.FOOTER_LICENSE = page.locator(".orangehrm-copyright-wrapper p:last-of-type")
+        self.FOOTER_LINK = page.locator(".orangehrm-copyright-wrapper a")
+        self.LINKEDIN_LINK = page.locator("a[href*='linkedin.com']")
+        self.FACEBOOK_LINK = page.locator("a[href*='facebook.com']")
+        self.TWITTER_LINK = page.locator("a[href*='twitter.com']")
+        self.YOUTUBE_LINK = page.locator("a[href*='youtube.com']")
+        self.ERROR = page.locator(".oxd-alert.oxd-alert--error")
