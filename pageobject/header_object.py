@@ -8,23 +8,23 @@ from locators.header_locators import HeaderLocators
 class HeaderObject(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.header_locators = HeaderLocators
-        self.dashboard_locators = DashboardLocators
+        self.header_locators = HeaderLocators(page)
+        self.dashboard_locators = DashboardLocators(page)
 
     def click_upgrade(self):
-        self.click(self.header_locators.UPGRADE_BUTTON)
+        self.header_locators.UPGRADE_BUTTON.click()
 
     def click_support(self):
-        self.click(self.header_locators.USER_DROPDOWN)
-        self.click(self.header_locators.SUPPORT_BUTTON)
+        self.header_locators.USER_DROPDOWN.click()
+        self.header_locators.SUPPORT_BUTTON.click()
 
     def click_change_password(self):
-        self.click(self.header_locators.USER_DROPDOWN)
-        self.click(self.header_locators.CHANGE_PASSWORD_BUTTON)
+        self.header_locators.USER_DROPDOWN.click()
+        self.header_locators.CHANGE_PASSWORD_BUTTON.click()
 
     def click_logout(self):
-        self.click(self.header_locators.USER_DROPDOWN)
-        self.click(self.header_locators.LOGOUT_BUTTON)
+        self.header_locators.USER_DROPDOWN.click()
+        self.header_locators.LOGOUT_BUTTON.click()
 
     def switch_to_new_tab(self, expected_tabs=2, timeout=10):
         self.page.context.wait_for_event("page", timeout=timeout * 1000)
@@ -38,23 +38,23 @@ class HeaderObject(BasePage):
             expect(self.page).to_have_title(title)
 
     def open_modal(self):
-        self.click(self.header_locators.USER_DROPDOWN)
-        self.click(self.header_locators.ABOUT_BUTTON)
+        self.header_locators.USER_DROPDOWN.click()
+        self.header_locators.ABOUT_BUTTON.click()
 
     def close_modal(self):
-        self.click(self.header_locators.ABOUT_CLOSE_BTN)
+        self.header_locators.ABOUT_CLOSE_BTN.click()
 
     def check_modal_is_opened(self):
-        self.should_be_visible(self.header_locators.ABOUT_HEADER)
-        self.should_be_visible(self.header_locators.COMPANY_NAME_LABEL)
-        self.should_be_visible(self.header_locators.COMPANY_NAME_TEXT)
-        self.should_be_visible(self.header_locators.VERSION_LABEL)
-        self.should_be_visible(self.header_locators.VERSION_TEXT)
-        self.should_be_visible(self.header_locators.EMPLOYEES_LABEL)
-        self.should_be_visible(self.header_locators.EMPLOYEES_TEXT)
-        self.should_be_visible(self.header_locators.TERMINATED_LABEL)
-        self.should_be_visible(self.header_locators.TERMINATED_TEXT)
-        self.should_be_visible(self.header_locators.ABOUT_CLOSE_BTN)
+        expect(self.header_locators.ABOUT_HEADER).to_be_visible()
+        expect(self.header_locators.COMPANY_NAME_LABEL).to_be_visible()
+        expect(self.header_locators.COMPANY_NAME_TEXT).to_be_visible()
+        expect(self.header_locators.VERSION_LABEL).to_be_visible()
+        expect(self.header_locators.VERSION_TEXT).to_be_visible()
+        expect(self.header_locators.EMPLOYEES_LABEL).to_be_visible()
+        expect(self.header_locators.EMPLOYEES_TEXT).to_be_visible()
+        expect(self.header_locators.TERMINATED_LABEL).to_be_visible()
+        expect(self.header_locators.TERMINATED_TEXT).to_be_visible()
+        expect(self.header_locators.ABOUT_CLOSE_BTN).to_be_visible()
 
     def check_modal_is_closed(self):
-        self.should_be_not_visible(self.header_locators.ABOUT_HEADER)
+        expect(self.header_locators.ABOUT_HEADER).not_to_be_visible()
