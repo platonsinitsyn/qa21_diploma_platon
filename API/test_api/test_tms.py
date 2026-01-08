@@ -19,7 +19,7 @@ def token(tms_service):
     return pytest.token
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_create_second_admin(tms_service):
     pytest.token = None
     response_json = tms_service.register_admin("admin2", "admin2@example.com", "qwerty123!", code=403)
@@ -28,7 +28,7 @@ def test_create_second_admin(tms_service):
     logger.info(response_json)
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_create_board(token, tms_service):
     response_json = tms_service.create_board("test_board", "just a test board for testing", False)
 
@@ -44,7 +44,7 @@ def test_create_board(token, tms_service):
     assert response_json["created_at"].startswith(current_date)
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_create_task(token, tms_service):
     board_response = tms_service.create_board("string", "string", False)
     logger.info(board_response)
@@ -63,7 +63,7 @@ def test_create_task(token, tms_service):
     assert response_json["updated_at"].startswith(current_date)
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_get_users(token, tms_service):
     response_json = tms_service.get_users(skip=0, limit=100)
 
@@ -75,7 +75,7 @@ def test_get_users(token, tms_service):
     assert response_json[0]["avatar_url"] is None
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_get_users_without_token(tms_service):
     pytest.token = None
     response_json = tms_service.get_users(skip=0, limit=100, code=403)
@@ -85,7 +85,7 @@ def test_get_users_without_token(tms_service):
 
 
 # HOMEWORK HERE:
-@pytest.mark.only
+@pytest.mark.smoke
 def test_add_board_members(token, tms_service):
     board_response = tms_service.create_board("new board", "test", False)
     board_id = board_response["id"]
@@ -97,7 +97,7 @@ def test_add_board_members(token, tms_service):
     assert response_json["message"] == "User added to board"
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_get_board_members(token, tms_service):
     response_json = tms_service.get_board_members(6, 200)
 
@@ -106,7 +106,7 @@ def test_get_board_members(token, tms_service):
     assert response_json[0]["email"] == "me_user@example.com"
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_get_board_stats(token, tms_service):
     response_json = tms_service.get_board_stats(6, 200)
 
@@ -115,7 +115,7 @@ def test_get_board_stats(token, tms_service):
     assert set(response_json.keys()) == expected_keys
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_search_tasks(token, tms_service):
     board_response = tms_service.create_board("search board", "test", False)
     logger.info(board_response)
@@ -132,7 +132,7 @@ def test_search_tasks(token, tms_service):
     assert len(tasks_found) == 2
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_move_task_next_status(token, tms_service):
     board_id = 6
     task_response = tms_service.create_task(board_id, "Task 1", "Test", "todo", "high")
@@ -149,7 +149,7 @@ def test_move_task_next_status(token, tms_service):
     assert response_json["status"] == "in_progress"
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_set_new_task_priority(token, tms_service):
     board_id = 6
     task_response = tms_service.create_task(board_id, "Task 1", "Test", "todo", "medium")
@@ -166,7 +166,7 @@ def test_set_new_task_priority(token, tms_service):
     assert response_json["priority"] == "high"
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_move_task_to_board(token, tms_service):
     board_id = 6
     target_board_id = 2
@@ -183,7 +183,7 @@ def test_move_task_to_board(token, tms_service):
     assert response_json["board_id"] == target_board_id
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_archive_board(token, tms_service):
     board_response = tms_service.create_board("archive board", "test", False)
     board_id = board_response["id"]
@@ -198,7 +198,7 @@ def test_archive_board(token, tms_service):
     assert response_json["archived"] is True
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_bulk_update_tasks(token, tms_service):
     board_id = 1
     task_response = tms_service.create_task(board_id, "Task 1", "Test", "todo", "medium")
@@ -215,7 +215,7 @@ def test_bulk_update_tasks(token, tms_service):
     assert response_json["message"] == "Updated 2 tasks to status 'in_progress'"
 
 
-@pytest.mark.only
+@pytest.mark.smoke
 def test_get_me_tasks(tms_service):
     pytest.token = None
     login_response = tms_service.login("me_user@example.com", "me123456")

@@ -1,5 +1,4 @@
 from playwright.sync_api import expect
-
 from core.base_page import BasePage
 from core.urls import URLS
 from locators.login_locators import LoginLocators
@@ -11,7 +10,7 @@ class LoginPage(BasePage):
         self.login_locators = LoginLocators(page)
 
     def open_page(self):
-        self.open(URLS.BASE + URLS.LOGIN)
+        self.open(URLS.LOGIN)
 
     def login(self, username, password):
         self.login_locators.INPUT_USERNAME.fill(username)
@@ -35,6 +34,13 @@ class LoginPage(BasePage):
         expect(self.login_locators.TWITTER_LINK).to_be_visible()
         expect(self.login_locators.YOUTUBE_LINK).to_be_visible()
         expect(self.login_locators.ERROR).not_to_be_visible()
+
+    def check_logout_page(self):
+        expect(self.login_locators.LOGO).to_be_visible()
+        expect(self.login_locators.SIDE_LOGO).to_be_visible()
+        expect(self.login_locators.PAGE_TITLE).to_be_visible()
+        expect(self.login_locators.INPUT_USERNAME).to_be_visible()
+        expect(self.login_locators.INPUT_PASSWORD).to_be_visible()
 
     def check_that_error_is_visible(self, text):
         expect(self.login_locators.ERROR).to_be_visible()
