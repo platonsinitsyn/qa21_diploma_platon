@@ -31,12 +31,12 @@ skip = [
 ]
 
 [tool.pytest.ini_options]
-testpaths = [
-    "pageobject_structure/tests"
-]
+testpaths = ["tests", "API/test_api"]
+
 norecursedirs = [
     ".*", "venv", "env", "__pycache__", "Library", "Applications"
 ]
 markers = [
-    "only: marks tests to run only this test (deselect all others)"
+  "smoke: smoke tests",
+  "only: run only marked tests",
 ]

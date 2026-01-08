@@ -1,9 +1,8 @@
 import enum
 
-BASE = "https://opensource-demo.orangehrmlive.com/web/index.php"
-
 
 class URLS(enum.StrEnum):
+    BASE = "https://opensource-demo.orangehrmlive.com/web/index.php"
     LOGIN = f"{BASE}/auth/login"
     MAIN_PAGE = "https://www.orangehrm.com/"
     ADMIN = f"{BASE}/admin/viewSystemUsers"
@@ -24,4 +23,4 @@ class URLS(enum.StrEnum):
     MY_TIME_TIMESHEET = f"{BASE}/time/viewMyTimesheet"
     SUPPORT = f"{BASE}/help/support"
     CHANGE_PASSWORD = f"{BASE}/pim/updatePassword"
-    UPGRADE = "https://orangehrm.com/open-source/upgrade-to-advanced"
+    UPGRADE = "https://www.orangehrm.com/open-source/upgrade-to-advanced"

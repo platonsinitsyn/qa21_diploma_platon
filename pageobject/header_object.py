@@ -1,8 +1,10 @@
 from playwright.sync_api import expect
-
 from core.base_page import BasePage
 from locators.dashboard_locators import DashboardLocators
 from locators.header_locators import HeaderLocators
+from locators.upgrade_locators import UpgradeLocators
+from locators.support_locators import SupportLocators
+from locators.login_locators import LoginLocators
 
 
 class HeaderObject(BasePage):
@@ -10,6 +12,9 @@ class HeaderObject(BasePage):
         super().__init__(page)
         self.header_locators = HeaderLocators(page)
         self.dashboard_locators = DashboardLocators(page)
+        self.upgrade_locators = UpgradeLocators(page)
+        self.support_locators = SupportLocators(page)
+        self.login_locators = LoginLocators(page)
 
     def click_upgrade(self):
         self.header_locators.UPGRADE_BUTTON.click()
@@ -28,9 +33,11 @@ class HeaderObject(BasePage):
 
     def switch_to_new_tab(self, expected_tabs=2, timeout=10):
         self.page.context.wait_for_event("page", timeout=timeout * 1000)
-        pages = self.page.context.pages
-        new_page = pages[-1]
+        new_page = self.page.context.pages[-1]
         self.page = new_page
+        self.upgrade_locators = UpgradeLocators(self.page)
+        self.header_locators = HeaderLocators(self.page)
+        self.dashboard_locators = DashboardLocators(self.page)
 
     def page_should_be_opened(self, expected_url, title=None):
         expect(self.page).to_have_url(expected_url)
@@ -55,6 +62,15 @@ class HeaderObject(BasePage):
         expect(self.header_locators.TERMINATED_LABEL).to_be_visible()
         expect(self.header_locators.TERMINATED_TEXT).to_be_visible()
         expect(self.header_locators.ABOUT_CLOSE_BTN).to_be_visible()
+
+    def check_upgrade_is_opened(self):
+        expect(self.upgrade_locators.FOOTER_TITLE).to_be_visible()
+        expect(self.upgrade_locators.FOOTER_TITLE).to_have_text(
+            "Unlock the full potential of your HR with OrangeHRM Advanced."
+        )
+
+    def check_support_is_opened(self):
+        expect(self.support_locators.SUPPORT_TITLE).to_be_visible()
 
     def check_modal_is_closed(self):
         expect(self.header_locators.ABOUT_HEADER).not_to_be_visible()
