@@ -11,7 +11,6 @@ def tms_service():
 
 @pytest.fixture
 def token(tms_service):
-    # Очищаем pytest.token перед логином
     pytest.token = None
     response_json = tms_service.login("user@example.com", "admin123")
     assert response_json["access_token"]
